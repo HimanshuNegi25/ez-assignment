@@ -82,113 +82,126 @@ export default function App() {
 
   return (
     <div className="page">
+      {/* Decorative Mandala Patterns */}
+      <div className="mandala mandala-top-right"></div>
+      <div className="mandala mandala-bottom-left"></div>
+
       <header className="header">
-        <div className="brand">EZ Labs</div>
-        <nav className="nav">
-          <a href="#home" className="nav-link">Home</a>
-          <a href="#contact" className="nav-link">Contact</a>
-        </nav>
+        <div className="brand">
+          <span className="brand-checkmark">✓</span>
+          <span className="brand-text">Films</span>
+        </div>
+        <button className="menu-toggle" aria-label="Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
       </header>
 
-      <main className="main" id="home">
-        <section className="hero">
-          <div className="hero-content">
-            <h1 className="hero-title">Get in touch</h1>
-            <p className="hero-subtitle">
-              We'd love to hear from you. Fill the form and we'll get back soon.
-            </p>
-          </div>
-        </section>
+      <main className="main">
+        <div className="content-wrapper">
+          {/* Left Section - Informational Text */}
+          <section className="info-section">
+            <div className="info-content">
+              <p className="info-text">
+                Whether you have an idea, a question, or simply want to explore how V can work together, V're just a message away.
+              </p>
+              <p className="info-text">Let's catch up over coffee.</p>
+              <p className="info-quote">Great stories always begin with a good conversation</p>
+            </div>
+          </section>
 
-        <section className="form-section" id="contact">
-          <div className="card">
-            <h2 className="card-title">Contact Us</h2>
-            <p className="card-subtitle">Send us your query and contact details</p>
+          {/* Right Section - Contact Form */}
+          <section className="form-section">
+            <div className="form-container">
+              <h2 className="form-title">Join the Story</h2>
+              <p className="form-subtitle">Ready to bring your vision to life? Let's talk.</p>
 
-            {errors.form && <div className="alert alert-error">{errors.form}</div>}
+              {errors.form && <div className="alert alert-error">{errors.form}</div>}
 
-            <form onSubmit={handleSubmit} noValidate>
-              <div className="grid">
-                <div className="field">
-                  <label htmlFor="name">Name</label>
+              <form onSubmit={handleSubmit} noValidate>
+                <div className="form-fields">
+                  <div className="field">
+                    <input
+                      id="name"
+                      name="name"
+                      type="text"
+                      placeholder="Your name*"
+                      value={form.name}
+                      onChange={handleChange}
+                      autoComplete="name"
+                    />
+                  </div>
+
+                  <div className="field">
+                    <input
+                      id="email"
+                      name="email"
+                      type="email"
+                      placeholder="Your email*"
+                      value={form.email}
+                      onChange={handleChange}
+                      autoComplete="email"
+                      aria-invalid={Boolean(errors.email)}
+                      aria-describedby={errors.email ? "email-error" : undefined}
+                      required
+                    />
+                    {errors.email && (
+                      <div className="field-error" id="email-error">{errors.email}</div>
+                    )}
+                  </div>
+
+                  <div className="field">
+                    <input
+                      id="phone"
+                      name="phone"
+                      type="tel"
+                      placeholder="Phone"
+                      value={form.phone}
+                      onChange={handleChange}
+                      autoComplete="tel"
+                    />
+                  </div>
+
+                  <div className="field">
+                    <textarea
+                      id="message"
+                      name="message"
+                      placeholder="Your message*"
+                      rows={5}
+                      value={form.message}
+                      onChange={handleChange}
+                    />
+                  </div>
+                </div>
+
+                <div className="actions">
+                  <button className="btn" type="submit" disabled={isSubmitting}>
+                    {isSubmitting ? "Submitting..." : "Submit"}
+                  </button>
+
+                  {/* Status text field as per requirement */}
                   <input
-                    id="name"
-                    name="name"
+                    className="status-field"
                     type="text"
-                    placeholder="Your full name"
-                    value={form.name}
-                    onChange={handleChange}
-                    autoComplete="name"
+                    value={statusText}
+                    onChange={() => {}}
+                    readOnly
+                    placeholder="Status will appear here"
+                    aria-live="polite"
                   />
                 </div>
+              </form>
 
-                <div className="field">
-                  <label htmlFor="email">Email<span className="req">*</span></label>
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    placeholder="you@example.com"
-                    value={form.email}
-                    onChange={handleChange}
-                    autoComplete="email"
-                    aria-invalid={Boolean(errors.email)}
-                    aria-describedby={errors.email ? "email-error" : undefined}
-                    required
-                  />
-                  {errors.email && (
-                    <div className="field-error" id="email-error">{errors.email}</div>
-                  )}
-                </div>
-
-                <div className="field">
-                  <label htmlFor="phone">Phone</label>
-                  <input
-                    id="phone"
-                    name="phone"
-                    type="tel"
-                    placeholder="e.g. +1 555 123 4567"
-                    value={form.phone}
-                    onChange={handleChange}
-                    autoComplete="tel"
-                  />
-                </div>
-
-                <div className="field field--full">
-                  <label htmlFor="message">Message</label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    placeholder="Write your message..."
-                    rows={5}
-                    value={form.message}
-                    onChange={handleChange}
-                  />
-                </div>
+              <div className="contact-info">
+                <span className="contact-email">vernita@varnanfilms.co.in</span>
+                <span className="contact-separator">|</span>
+                <span className="contact-phone">+91 98736 84567</span>
               </div>
-
-              <div className="actions">
-                <button className="btn" type="submit" disabled={isSubmitting}>
-                  {isSubmitting ? "Submitting..." : "Submit"}
-                </button>
-
-                {/* Status text field as per requirement */}
-                <input
-                  className="status-field"
-                  type="text"
-                  value={statusText}
-                  onChange={() => {}}
-                  readOnly
-                  placeholder="Status will appear here"
-                  aria-live="polite"
-                />
-              </div>
-            </form>
-          </div>
-        </section>
+            </div>
+          </section>
+        </div>
       </main>
-
-      <footer className="footer">© {new Date().getFullYear()} EZ Labs</footer>
     </div>
   );
 }
